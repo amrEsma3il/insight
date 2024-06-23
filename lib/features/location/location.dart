@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:insight/core/const.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../../core/map_styles.dart';
@@ -36,10 +37,15 @@ class MapSampleState extends State<MapSample> {
     'address',
     'position',
     'location',
+    'لوكيشن',
+    'ادرس',
+    'بوزيشن',
     'عنوان',
     'الموقع',
     'المكان'
   ];
+
+
 
   determinePosition() async {
     bool serviceEnabled;
@@ -155,14 +161,20 @@ class MapSampleState extends State<MapSample> {
   }
 
   void startListening() {
+    // if (!isListening) {
     specch.listen(
+      // listenFor: Duration(hours: 24),
+      // pauseFor: Duration(hours: 6),
+      // partialResults: true,
       onResult: (result) {
         processResult(result.recognizedWords);
       },
     );
+
     setState(() {
       isListening = true;
     });
+    // }
   }
 
   void processResult(String recognizedWords) async {
@@ -170,7 +182,7 @@ class MapSampleState extends State<MapSample> {
     log(recognizedWords);
     // await speak(recognizedWords);
     for (String keyword in keywords) {
-      if (recognizedWords.contains(keyword)) {
+      if (recognizedWords.contains(keyword)||keyword==recognizedWords) {
         // _detectedWord = keyword;
         await speak(locationString);
         break;
@@ -264,15 +276,49 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        markers: markers.toSet(),
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          gMapCtrl = controller;
-          // ignore: deprecated_member_use
-          gMapCtrl!.setMapStyle(MapStyle.blueComplex);
-        },
-        polylines: polylines,
+      body: Stack(
+        children: [
+          GoogleMap(
+            markers: markers.toSet(),
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              gMapCtrl = controller;
+              // ignore: deprecated_member_use
+              gMapCtrl!.setMapStyle(MapStyle.blueComplex);
+            },
+            polylines: polylines,
+          ),
+          Positioned(
+              left: 0,
+              top: 0,
+              child: GestureDetector(
+                onTap: () {
+                  isListening?stopRecord():startListening();
+                },
+                child: Container(alignment: Alignment.center,
+                  width: 230,
+                  height: 210,
+                  decoration: BoxDecoration(
+                      color: Palette.skyBlue.withOpacity(0.3),
+                      borderRadius:
+                          BorderRadius.only(bottomRight: Radius.circular(200))),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 40.0,bottom: 10),
+                            child: Icon(
+                              
+                              isListening?Icons.close: Icons.mic,size: 70,),
+                          ),
+                ),
+              )),
+              Positioned(top: 15,
+              right: 17,
+                
+                child: IconButton(
+                  onPressed: () {
+                Navigator.pop(context);
+                
+              }, icon: Icon(Icons.arrow_back_sharp,color: Colors.white70,size: 35,)))
+        ],
       ),
     );
   }

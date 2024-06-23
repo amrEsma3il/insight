@@ -19,6 +19,7 @@ static const object=imgPath+"object.jpg";
 static const currency=imgPath+"currency.jpg";
 static const gps=imgPath+"gps.jpg";
 static const videoHelping=imgPath+"video_audio.png";
+static const camera =imgPath+"camera.png";
 }
 
 

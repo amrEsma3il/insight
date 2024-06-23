@@ -6,8 +6,8 @@ import 'package:insight/core/extension/color_formatter.dart';
 
 import '../core/const.dart';
 import 'location/location.dart';
-import 'ml/camera_component.dart';
-import 'sound_helper.dart';
+import 'ml/ml.dart';
+import 'video_sound.dart/sound_helper.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,61 +19,68 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(body: Stack(
-        children: [
-          Column(children: [
-          SizedBox(height: 59,),
-          FeatureComponent(onTap: () {
-             Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>  CameraPage()));
-          },
-            
-            text: 'رؤية الحاسب',img: AppImages.face,right: 110,
-          top:100 ,
-          sigmaX:0.5 ,
-          sigmaY: 0.5, ),
-          SizedBox(height: 2,),
-           FeatureComponent(onTap: () {
-             Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>  SoundHelper()));
-          },
-            
-            text: 'المساعد الصوتي',img: AppImages.videoHelping,right: 95,
-          top:100 ,
-          sigmaX:1 ,
-          sigmaY:1,),
-            SizedBox(height: 2,),
-          FeatureComponent(onTap: () {
-             Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>  MapSample()));
-          },
-            
-            text: 'الموقع',img:AppImages.gps,
-          right: 160,
-          top:100 ,
-          sigmaX:1.8 ,
-          sigmaY:1,),
-               
-               
-          // SizedBox(height: 8,)
-            
-          ],),
-      Positioned(
-      height: 53,
-      left: 0,
+    return Scaffold(
+       appBar: AppBar(
+      foregroundColor: Colors.white,
+      backgroundColor: Palette.skyBlue,
+      title: const Text("الصفحة الرئيسية"),
+      centerTitle: true,
+    ),
       
-        right: 0,
-        top: 0,
-        child: GradientContainerWithText(),),  ],
-      ),),
-    );
+      body: Stack(
+      children: [
+        Column(children: [
+        SizedBox(height: 5,),
+        FeatureComponent(onTap: () {
+           Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  CameraPage()));
+        },
+          
+          text: 'رؤية الحاسب',img: AppImages.face,right: 80,
+        top:100 ,
+        sigmaX:0.5 ,
+        sigmaY: 0.5, ),
+        SizedBox(height: 2,),
+         FeatureComponent(onTap: () {
+           Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  SoundHelper()));
+        },
+          
+          text: 'المساعد الصوتي',img: AppImages.videoHelping,right: 55,
+        top:100 ,
+        sigmaX:1 ,
+        sigmaY:1,),
+          SizedBox(height: 2,),
+        FeatureComponent(onTap: () {
+           Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  MapSample()));
+        },
+          
+          text: 'الموقع',img:AppImages.gps,
+        right: 145,
+        top:100 ,
+        sigmaX:1.8 ,
+        sigmaY:1,),
+             
+             
+        // SizedBox(height: 8,)
+          
+        ],),
+    // Positioned(
+    // height: 53,
+    // left: 0,
+    
+    //   right: 0,
+    //   top: 0,
+    //   child: GradientContainerWithText(),), 
+       ],
+    ),);
   }
 }
 
@@ -103,10 +110,11 @@ class GradientContainerWithText extends StatelessWidget {
           ),],
         gradient: LinearGradient(
           colors: [
-            "#797769".toColor,
+           
             "#1c2e4d".toColor,
-            
+            "#797769".toColor,
             "#6f5a50".toColor,
+            "#797769".toColor,
             
           ],
           begin: Alignment.topLeft,
@@ -151,8 +159,9 @@ final double right,top,sigmaX,sigmaY;
           // Image asset
           Positioned(
             child: Container(
+           
               width: double.infinity,
-              height: MediaQuery.of(context).size.height/3-34.4,
+              height: MediaQuery.of(context).size.height/3-35,
               child: Image.asset(
                 img,
                 fit: BoxFit.cover,

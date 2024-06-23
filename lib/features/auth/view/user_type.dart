@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/const.dart';
+import '../../video_sound.dart/camera_auth.dart';
 import '../widgets/custom_button_signin.dart';
-import 'patient_auth.dart';
+import 'follow_auth.dart';
+import 'patient_register.dart';
 
 
 class UserType extends StatelessWidget {
@@ -35,10 +37,10 @@ class UserType extends StatelessWidget {
                   CustomButtonSignIn(
                     txt: 'مرافق',
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const AuthenticateDoctor()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginFollower()));
                     },
                   ),
 

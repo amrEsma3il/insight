@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'config/localization/app_localization.dart';
 import 'features/auth/view/user_type.dart';
-import 'features/ml/camera_component.dart';
+
+import 'features/ml/ml.dart';
 import 'features/location/location.dart';
+
 
 void main() {
   runApp(const InSight());
